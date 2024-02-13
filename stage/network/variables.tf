@@ -1,4 +1,5 @@
 data "aws_vpc" "bastion_vpc"{
+  depends_on = [ module.webserver_cluster ]
   filter {
      name = "tag-key"
      values = ["Name"]
@@ -10,6 +11,7 @@ data "aws_vpc" "bastion_vpc"{
 }
 
 data "aws_subnets" "bastion_subnet" { 
+    depends_on = [ module.webserver_cluster ]
     filter {
      name = "tag-key"
      values = ["kubernetes.io/cluster/stg-ecommerce-eks"]
