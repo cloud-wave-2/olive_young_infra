@@ -1,0 +1,9 @@
+stage/eks/terraform.tfstate*
+stage/network/terraform.tfstate*
+stage/bastion/terraform.tfstate*
+stage/network/.terraform/
+stage/bastion/.terraform/
+stage/eks/.terraform/
+
+modules/*/terraform.tfstate*
+stage/bastion/stg-ecommerce-eksBastion-keypair
