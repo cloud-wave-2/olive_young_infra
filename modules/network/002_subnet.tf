@@ -1,15 +1,16 @@
 #########################################################################################################
+
 ## Create Public & Private Subnet
 #########################################################################################################
 resource "aws_subnet" "public-subnet-a" {
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = "10.0.1.0/24"
   availability_zone       = "ap-northeast-2a"
-  # map_public_ip_on_launch = true
+  map_public_ip_on_launch = true
   tags = {
     Name = "${var.public_subnet_a_name}"
-    # "kubernetes.io/cluster/${var.cluster-name}" = "shared"
-    # "kubernetes.io/role/elb"                               = "1"
+    "kubernetes.io/cluster/${var.cluster-name}" = "shared"
+    "kubernetes.io/role/elb"                               = "1"
   }
 }
 
@@ -17,11 +18,11 @@ resource "aws_subnet" "public-subnet-c" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = "10.0.2.0/24"
   availability_zone = "ap-northeast-2c"
-  # map_public_ip_on_launch = true
+  map_public_ip_on_launch = true
   tags = {
     Name = "${var.public_subnet_c_name}"
-    # "kubernetes.io/cluster/${var.cluster-name}" = "shared"
-    # "kubernetes.io/role/elb"                               = "1"
+    "kubernetes.io/cluster/${var.cluster-name}" = "shared"
+    "kubernetes.io/role/elb"                               = "1"
   }
 }
 
