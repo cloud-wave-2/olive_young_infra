@@ -15,7 +15,7 @@ variable "vpc_name" {
   type = string
 }
 
-data "aws_vpc" "bastion_vpc"{
+data "aws_vpc" "eks_vpc"{
   filter {
      name = "tag-key"
      values = ["Name"]
@@ -26,7 +26,7 @@ data "aws_vpc" "bastion_vpc"{
    }
 }
 
-data "aws_subnets" "bastion_subnet" { 
+data "aws_subnets" "eks_subnet" { 
     filter {
      name = "tag-key"
      values = ["kubernetes.io/cluster/${var.cluster-name}"]

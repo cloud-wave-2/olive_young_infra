@@ -75,7 +75,11 @@ resource "aws_route_table_association" "private-rtb-assoc-01c" {
 ################################################ 
 resource "aws_route_table" "private-rtb-02a" {
   vpc_id = aws_vpc.vpc.id
-
+  # 얘 추가해라.
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.nat-gateway-a.id
+  }
   tags = {
     Name = "${var.private_rtb_02a_name}"
   }

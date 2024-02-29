@@ -63,7 +63,7 @@ resource "helm_release" "eks_common_alb" {
       "serviceAccount.create"                                     = "true"
       "serviceAccount.name"                                       = local.lb_controller_service_account_name
       "region"                                                    = "ap-northeast-2"
-      "vpcId"                                                     = data.aws_vpc.bastion_vpc.id
+      "vpcId"                                                     = data.aws_vpc.eks_vpc.id
       "image.repository"                                          = "602401143452.dkr.ecr.ap-northeast-2.amazonaws.com/amazon/aws-load-balancer-controller"
       "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn" = module.wave_eks_lb_controller_role.iam_role_arn
     }

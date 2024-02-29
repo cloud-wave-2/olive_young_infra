@@ -37,32 +37,52 @@ module "eks" {
   }
 
   # 해당 cluster가 관리할 VPC와 서브넷 
-  vpc_id                   = data.aws_vpc.bastion_vpc.id
-  subnet_ids               = data.aws_subnets.bastion_subnet.ids
+  vpc_id                   = data.aws_vpc.eks_vpc.id
+  subnet_ids               = ["subnet-0077620333280526d", "subnet-01480e62953b41d7a", "subnet-056ca5878cfe2a414", "subnet-04e20f2e53da38171"]
 
   # EKS Managed Node Group
   eks_managed_node_group_defaults = {
-    instance_types = ["m7i.large"]
+    instance_types = ["c7i.large"]
   }
 
   eks_managed_node_groups = {
     web = {
       name = "stg-web-nodegroup"
-      min_size     = 2
-      max_size     = 2
-      desired_size = 2
-
-      instance_types = ["m7i.large"]
+			# min, max size를 변경해야함.d
+      min_size     = 3
+      max_size     = 6 
+      desired_size = 3
+      # instance_types = ["c7i.large"]
+			# which subnets node-group should be located 
+			subnet_ids = ["subnet-056ca5878cfe2a414", "subnet-04e20f2e53da38171"]
+			# for auto scaling
+			tags = {
+		    Environment = "dev"
+			  Terraform   = "true"
+		  }
+			labels = {
+		    server = "web"
+		  }
     }
     was = {
       name = "stg-was-nodegroup"
-      min_size     = 2
-      max_size     = 2
-      desired_size = 2
-
-      instance_types = ["m7i.large"]
+      min_size     = 3
+      max_size     = 6
+      desired_size = 3
+      # instance_types = ["c7i.large"]
+			# which subnets node-group should be located 
+			subnet_ids = ["subnet-01480e62953b41d7a", "subnet-0077620333280526d"]
+			# for auto scaling
+			tags = {
+		    Environment = "dev"
+			  Terraform   = "true"
+		  }
+			labels = {
+		    server = "was"
+		  }
     }
   }
+  
 }
 
 module "vpc_cni_irsa" {
